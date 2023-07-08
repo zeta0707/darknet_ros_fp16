@@ -46,28 +46,13 @@ darknet_ros + ROS2 Foxy + OpenCV4 + CUDA 10 + __CUDNN (FP16)__ :fire::fire::fire
 ### Installation
 
 ```bash
-$ sudo apt install ros-humble-desktop ros-humble-v4l2-camera
-$ source /opt/ros/humble/setup.bash
+$ source /opt/ros/foxy/setup.bash
 $ mkdir -p ~/ros2_ws/src
 $ cd ~/ros2_ws/src
 $ git clone --recursive https://github.com/zeta0707/darknet_ros_fp16.git
 $ darknet_ros_fp16/darknet_ros/rm_darknet_CMakeLists.sh
 $ cd ~/ros2_ws
 $ colcon build --symlink-install
-```
-
-### NVIDIA-Docker
-
-- Driver version : 515.65.01
-- NVIDIA Docker2
-- NVIDIA Graphics card (Tested : RTX3060Ti)
-
-```bash
-git clone https://github.com/Ar-Ray-code/darknet_ros_fp16.git
-docker build -t darknet_ros_fp16 ./darknet_ros_fp16/.
-
-# connect webcamera
-docker run --rm -it --device /dev/video0:/dev/video0:mwr -e DISPLAY=$DISPLAY --gpus all -v /tmp/.X11-unix:/tmp/.X11-unix darknet_ros_fp16 /bin/bash
 ```
 
 ### Edit CMakeLists.txt
@@ -97,11 +82,11 @@ In that case, please comment out line 17 `set(CMAKE_CUDA_ARCHITECTURES 72)`
 Since the weights to be downloaded are large, you can select the weights to be downloaded by the options.
 
 ```cmake
-set(DOWNLOAD_YOLOV2_TINY ON)　 # default : on
+set(DOWNLOAD_YOLOV2_TINY OFF)　 # default : off
 set(DOWNLOAD_YOLOV3 OFF)       # default : off
-set(DOWNLOAD_YOLOV4 ON)      　# default : on
+set(DOWNLOAD_YOLOV4 OFF)      　# default : off
 set(DOWNLOAD_YOLOV4_CSP OFF) 　# default : off
-set(DOWNLOAD_YOLOV4_TINY OFF)  # default : on
+set(DOWNLOAD_YOLOV4_TINY ON)  # default : on
 set(DOWNLOAD_YOLOV4_MISH OFF)　# default : off
 set(DOWNLOAD_YOLOV7_TINY ON)　 # default : on
 ```
@@ -113,7 +98,7 @@ set(DOWNLOAD_YOLOV7_TINY ON)　 # default : on
 Connect your webcam to your PC.
 
 ```bash
-$ source /opt/ros/humble/setup.bash
+$ source /opt/ros/foxy/setup.bash
 $ source ~/ros2_ws/install/local_setup.bash
 $ ros2 launch darknet_ros demo-v4-tiny.launch.py
 ```
@@ -130,24 +115,13 @@ Using YOLO v4 consumes a lot of GPU memory and lowers the frame rate, so you nee
 
 | Topics | Spec                                    |
 | ------ | --------------------------------------- |
-| CPU    | Intel Core i9 12900KF                   |
-| RAM    | 64GB DDR4                               |
-| GPU    | NVIDIA GeForce RTX 2080 Ti (GDDR6 11GB) |
-| Driver | 495.29.05                               |
+| CPU    | Jetson Nano                   |
+| RAM    | 4G DDR                              |
+| Driver | Jetpack 4.5                              |
 
 ### Performance (using cuDNN FP16)
 
-YOLO v4 : 48fps
-
-Scaled YOLO v4 : 80fps
-
-YOLO v4-tiny : 215fps
-
-YOLO v4x-mish : 32fps
-
-YOLO v2-tiny : 205fps (Min : 24fps)
-
-YOLOv7-tiny : 160fps (cudnn_half = 0)
+YOLO v4-tiny : about 10 fps
 
 > Note : YOLOv2-tiny is deprecated.
 
@@ -157,10 +131,10 @@ YOLOv7-tiny : 160fps (cudnn_half = 0)
 ## YOLOv7 🚀
 
 ```bash
-git clone https://github.com/Ar-Ray-code/darknet_ros_fp16 --recursive ~/darknet_ws/src/darknet_ros_fp16
+git clone https://github.com/zeta0707/darknet_ros_fp16 --recursive ~/darknet_ws/src/darknet_ros_fp16
 darknet_ws/src/darknet_ros_fp16/darknet_ros/rm_darknet_CMakeLists.sh
 
-source /opt/ros/humble/setup.bash
+source /opt/ros/foxy/setup.bash
 cd ~/darknet_ws/
 colcon build --symlink-install
 source install/setup.bash
