@@ -46,8 +46,6 @@ darknet_ros + ROS2 Foxy + OpenCV4 + CUDA 10 + __CUDNN (FP16)__ :fire::fire::fire
 ### Installation
 
 ```bash
-$ source /opt/ros/foxy/setup.bash
-$ mkdir -p ~/ros2_ws/src
 $ cd ~/ros2_ws/src
 $ git clone --recursive https://github.com/zeta0707/darknet_ros_fp16.git
 $ darknet_ros_fp16/darknet_ros/rm_darknet_CMakeLists.sh
@@ -95,21 +93,23 @@ set(DOWNLOAD_YOLOV7_TINY ON)　 # default : on
 
 ### Demo
 
-Connect your webcam to your PC.
 
 ```bash
 $ source /opt/ros/foxy/setup.bash
 $ source ~/ros2_ws/install/local_setup.bash
-$ ros2 launch darknet_ros demo-v4-tiny.launch.py
+
+# csi camera
+$ ros2 launch darknet_ros yolov4-tiny.csi.launch.py
+# usb camera
+$ ros2 launch darknet_ros yolov4-tiny.usb.launch.py
 ```
 
 ![example](https://user-images.githubusercontent.com/67567093/117596596-a2c8db00-b17e-11eb-90f9-146212e64567.png)
 
 
-
 ## Performance
 
-Using YOLO v4 consumes a lot of GPU memory and lowers the frame rate, so you need to pay attention to your PC specs.
+Using YOLO v4 consumes a lot of GPU memory and lowers the frame rate, so you need to pay attention.
 
 ### Test Machine
 
@@ -123,24 +123,9 @@ Using YOLO v4 consumes a lot of GPU memory and lowers the frame rate, so you nee
 
 YOLO v4-tiny : about 10 fps
 
-> Note : YOLOv2-tiny is deprecated.
-
-![E2tRQvnUcAQqn8O](https://user-images.githubusercontent.com/67567093/121984014-35d3e100-cdcd-11eb-9959-b1063a9a0b2b.jpeg)
-
-
-## YOLOv7 🚀
-
-```bash
-git clone https://github.com/zeta0707/darknet_ros_fp16 --recursive ~/darknet_ws/src/darknet_ros_fp16
-darknet_ws/src/darknet_ros_fp16/darknet_ros/rm_darknet_CMakeLists.sh
-
-source /opt/ros/foxy/setup.bash
-cd ~/darknet_ws/
-colcon build --symlink-install
-source install/setup.bash
-
-ros2 launch darknet_ros yolov7.launch.py
-```
+<p align="center">
+    <img src="./pictures/tinyv4_fp16.png" width="500" />
+</p>
 
 
 ## Acknowledgment
