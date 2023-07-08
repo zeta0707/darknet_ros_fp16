@@ -1,6 +1,6 @@
 # darknet-ros-fp16
 
-darknet_ros + ROS2 Humble + OpenCV4 + CUDA 11 + __CUDNN (FP16)__ :fire::fire::fire:
+darknet_ros + ROS2 Foxy + OpenCV4 + CUDA 10 + __CUDNN (FP16)__ :fire::fire::fire:
 
 - [English (GitHub Wiki)](https://github.com/Ar-Ray-code/darknet_ros_fp16/wiki/Darknet_ros_FP16-Report-(1.3x-faster)-%F0%9F%94%A5)
 - [Japanese (zenn)](https://zenn.dev/array/articles/4c82fc8382e62d)
@@ -30,15 +30,12 @@ darknet_ros + ROS2 Humble + OpenCV4 + CUDA 11 + __CUDNN (FP16)__ :fire::fire::fi
 
 ## Requirements
 
-- ROS2 (tested on Humble)
+- ROS2 (tested on Foxy)
 - CUDA10 or later
   - If not, it will automatically turn off
 - OpenCV
-- v4l2-camera (Connect to `/dev/video*`)
+- CSI camera on Jetson Nano
 - NVIDIA Graphics Card (Volta , Turing , Ampere)
-<!-- - Docker + [NVIDIA-Docker](https://github.com/NVIDIA/nvidia-docker)
-  - This docker image is using `cuda:11.7` . -->
-- xhost (To install xhost , run `$ sudo apt install xorg` .)
 - cuDNN (Ubuntu 20.04)
 
 <br>
@@ -53,8 +50,8 @@ $ sudo apt install ros-humble-desktop ros-humble-v4l2-camera
 $ source /opt/ros/humble/setup.bash
 $ mkdir -p ~/ros2_ws/src
 $ cd ~/ros2_ws/src
-$ git clone --recursive https://github.com/Ar-Ray-code/darknet_ros_yolov4.git
-$ darknet_ros_yolov4/darknet_ros/rm_darknet_CMakeLists.sh
+$ git clone --recursive https://github.com/zeta0707/darknet_ros_fp16.git
+$ darknet_ros_fp16/darknet_ros/rm_darknet_CMakeLists.sh
 $ cd ~/ros2_ws
 $ colcon build --symlink-install
 ```
